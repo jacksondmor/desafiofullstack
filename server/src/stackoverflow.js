@@ -19,9 +19,14 @@ const extractor = item => {
 
 const onlyJavascript = questions => questions.tag === 'javascript'
 
-axios.get(`${hostname}${path}`).then( res => {
-    
-    const result = res.data.items.map(extractor).filter(onlyJavascript)
-    
-    return console.log(result)
-})
+exports.getQuestionsStack = function () {
+    return axios.get(`${hostname}${path}`)
+            .then( res => {       
+                return res.data.items.map(extractor).filter(onlyJavascript)
+            }).catch(error => {
+                if (error) {
+                    return Promise.reject(error)
+                }
+            })
+}
+
