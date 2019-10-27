@@ -1,7 +1,6 @@
 const axios = require('axios')
 
 const hostname = 'https://api.stackexchange.com/2.2/questions?'
-const path = 'order=desc&min=1572048000&max=1572134400&sort=activity&tagged=vue&site=stackoverflow'
 
 const extractor = item => {
     const questions = new Object
@@ -19,10 +18,26 @@ const extractor = item => {
 
 const onlyJavascript = questions => questions.tag === 'javascript'
 
-exports.getQuestionsStack = function () {
-    return axios.get(`${hostname}${path}`)
+function filterByScore(score) {
+    return function filter(questions) {
+        return questions.score === score;
+    }
+  }
+
+exports.getQuestionsStack = function (tag, limit, score, sort) {
+    return axios.get(`${hostname}sort=${sort}&tagged=${tag}&site=stackoverflow`)
             .then( res => {       
-                return res.data.items.map(extractor).filter(onlyJavascript)
+                let result = res.data.items.map(extractor).filter(onlyJavascript)
+                
+                if (score != undefined || score != null) {
+                    result = result.filter(filterByScore(score))
+                }
+
+                if (limit > 0 || limit != undefined || limit != null) {
+                    result = result.slice(0, limit)
+                }
+
+                return result
             }).catch(error => {
                 if (error) {
                     return Promise.reject(error)
