@@ -8,23 +8,24 @@
       <div class="row">
         <div class="col-md">
           <h5>Tag</h5>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" v-model="tag">
         </div>
         <div class="col-md">
           <h5>Limit</h5>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" v-model="limit">
         </div>
         <div class="col-md">
           <h5>Score</h5>
-          <input class="form-control" type="text">
+          <input class="form-control" type="text" v-model="score">
         </div>
         <div class="col-md">
           <h5>Sort</h5>
-          <input class="form-control" type="text">
+          {{ sort }}
+          <input class="form-control" type="text" v-model="sort"> 
         </div>
       </div>
       <div class="text-right">
-        <button class="btn btn-success" v-on:click="getQuestions()">Buscar</button>
+        <button class="btn btn-success" v-on:click="getQuestions(tag, limit, score, sort)">Buscar</button>
       </div>
     </nav>
     <main class="conteudo">
@@ -63,18 +64,23 @@ export default {
   name: "app",
   data: function() {
     return {
+      tag: "", 
+      limit: "", 
+      score: "", 
+      sort: "",
       rowData:[]
     }
   },
   methods: {
-    getQuestions() {
+    getQuestions(tag, limit, score, sort) {
+      const where = `tag: "${tag}", limit: "${limit}", score: "${score}", sort: "${sort}"`
       axios({
         url: "http://localhost:4000",
         method: "post",
         data: {
           query: `
             {
-              getQuestions(tag: "javascript", limit: 2, score: 1, sort: "activity") {
+              getQuestions(${where}) {
                 tag
                 ownerName 
                 ownerProfile
@@ -89,6 +95,7 @@ export default {
         }
       }).then(response => {
         /* eslint-disable no-console */
+        this.rowData = []
         const query = response.data
         Array.from(query.data.getQuestions).forEach(questions => this.rowData.push(questions))
         /* eslint-enable no-console */
