@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="text-right">
-        <button class="btn btn-success">Buscar</button>
+        <button class="btn btn-success" v-on:click="getQuestions()">Buscar</button>
       </div>
     </nav>
     <main class="conteudo">
@@ -57,9 +57,45 @@
 
 <script>
 import "bootstrap/dist/css/bootstrap.css"
+import axios from "axios/dist/axios"
 
 export default {
-  name: 'app'
+  name: 'app',
+  methods: {
+    getQuestions() {
+      axios({
+        url: "http://localhost:4000",
+        method: "post",
+        data: {
+          query: `
+            {
+              getQuestions(tag: "javascript", limit: 2, score: 1, sort: "activity") {
+                tag
+                ownerName 
+                ownerProfile
+                title
+                viewCount
+                score
+                creationDate
+                link
+              }
+            }
+          `
+        }
+      }).then(response => {
+        /* eslint-disable no-console */
+        const query = response.data
+        console.log(query.data.getQuestions)
+        /* eslint-enable no-console */
+      }).catch(error => {
+        if (error) {
+          /* eslint-disable no-console */
+          return console.log(error)
+          /* eslint-enable no-console */
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -108,7 +144,6 @@ table {
 th {
   background-color: lightgray;
   color: #333;
-  cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -123,6 +158,10 @@ th, td {
   min-width: 120px;
   padding: 10px 20px;
   border: #fff solid 1px;
+}
+
+tbody tr:hover {
+  background-color: lightskyblue;
 }
 
 .rodape {
