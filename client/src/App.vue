@@ -43,17 +43,15 @@
             <th>Title</th>
             <th>Views</th>
             <th>Score</th>
-            <th>Created</th>
           </tr> 
         </thead>
         <tbody>
           <tr v-for="(item, index) in rowData" :key="index">            
             <td scope="row"> {{ item.tag }}</td>
             <td>{{ item.ownerName }}</td>
-            <td>{{ item.title }}</td>
+            <td ><a v-bind:href="item.link" target="_blank">{{ item.title }}</a></td>
             <td>{{ item.viewCount }}</td>
             <td>{{ item.score }}</td>
-            <td>{{ item.creationDate }}</td>
           </tr>
         </tbody>  
       </table>
