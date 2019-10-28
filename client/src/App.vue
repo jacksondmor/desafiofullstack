@@ -2,9 +2,8 @@
   <div>
     <header class="cabecalho">
       <h1>StackOverflow</h1>
-    </header>
-    <AppFiltros></AppFiltros>
-    <AppQuestionsList v-bind:rowData="rowData"></AppQuestionsList>
+    </header>  
+    <AppFiltros></AppFiltros>    
     <footer class="rodape"></footer>
   </div>
 </template>
@@ -53,8 +52,15 @@ body {
 .conteudo {
   background: #fff;
   color: #333;
-  padding: 30px 0;
+  padding: 0;
   margin: 0 30px
+}
+
+.conteudo-grid {
+  background: #fff;
+  color: #333;
+  padding: 0 80px;
+  margin: 0 30px;
 }
 
 table {
@@ -89,6 +95,10 @@ tbody tr:hover {
 .warming h6 {
   color: crimson;
   margin: 0;
+}
+
+#layout {
+  margin: 10px 30px 10px 0
 }
 
 .rodape {

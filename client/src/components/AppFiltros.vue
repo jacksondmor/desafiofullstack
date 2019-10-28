@@ -31,7 +31,22 @@
         <h6>{{ warning }}</h6>
       </div>
     </nav>
-    <AppQuestionsList v-bind:rowData="rowData"></AppQuestionsList>
+    <div id="layout" class="text-right">
+      <div class="btn-group" role="group" aria-label="Exemplo básico">
+        <div v-if="visible">
+          <button type="button" class="btn btn-light btn-sm" v-on:click="changeLayout()"><img src="../assets/grid.png"></button> 
+        </div>
+        <div v-else>
+          <button type="button" class="btn btn-light btn-sm"  v-on:click="changeLayout()"><img src="../assets/lista.png"></button>
+        </div>          
+      </div>
+    </div>
+    <div v-if="visible">
+      <AppQuestionsList v-bind:rowData="rowData"></AppQuestionsList>
+    </div>
+    <div v-else>
+      <AppQuestionsGrid v-bind:rowData="rowData"></AppQuestionsGrid>
+    </div>    
     <footer class="rodape"></footer>
   </div>
 </template>
@@ -40,11 +55,13 @@
 import "bootstrap/dist/css/bootstrap.css"
 import axios from "axios/dist/axios"
 import AppQuestionsList from "./AppQuestionsList"
+import AppQuestionsGrid from "./AppQuestionsGrid"
 
 export default {
   name: "AppFiltros",
   components: {
-    AppQuestionsList
+    AppQuestionsList,
+    AppQuestionsGrid
   },
   data: function() {
     return {
@@ -53,6 +70,7 @@ export default {
       score: "", 
       sort: "",
       warning: "",
+      visible: true,
       rowData:[]
     }
   },
@@ -130,6 +148,9 @@ export default {
             this.warning = "" 
           }
       }
+    },
+    changeLayout() {
+      this.visible = !this.visible
     }
   }
 }
