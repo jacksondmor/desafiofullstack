@@ -40,13 +40,13 @@
           </tr> 
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr v-for="(item, index) in rowData" :key="index">            
+            <td scope="row"> {{ item.tag }}</td>
+            <td>{{ item.ownerName }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.viewCount }}</td>
+            <td>{{ item.score }}</td>
+            <td>{{ item.creationDate }}</td>
           </tr>
         </tbody>  
       </table>
@@ -60,7 +60,12 @@ import "bootstrap/dist/css/bootstrap.css"
 import axios from "axios/dist/axios"
 
 export default {
-  name: 'app',
+  name: "app",
+  data: function() {
+    return {
+      rowData:[]
+    }
+  },
   methods: {
     getQuestions() {
       axios({
@@ -85,7 +90,7 @@ export default {
       }).then(response => {
         /* eslint-disable no-console */
         const query = response.data
-        console.log(query.data.getQuestions)
+        Array.from(query.data.getQuestions).forEach(questions => this.rowData.push(questions))
         /* eslint-enable no-console */
       }).catch(error => {
         if (error) {
