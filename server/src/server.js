@@ -1,12 +1,6 @@
-const express = require('express')
-const graphqlHTTP = require('express-graphql')
-const { buildSchema } = require('graphql')
 const schema = require('./api/schema')
 
-const app = express()
-app.use('/api', graphqlHTTP({
-    schema,
-    graphiql: true
-}))
+const { ApolloServer } = require('apollo-server')
 
-app.listen(4000, () => console.log('Executando na porta 4000...'))
+const server = new ApolloServer({ schema })
+server.listen(4000, () => console.log('Executando na porta 4000...'))
