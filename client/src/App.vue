@@ -1,9 +1,62 @@
 <template>
-  <div id="app">
+  <div>
+    <header class="cabecalho">
+      <h1>StackOverflow</h1>
+    </header>
+    <nav class="filtros">
+      <h2>Buscar na API</h2>
+      <div class="row">
+        <div class="col-md">
+          <h5>Tag</h5>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-md">
+          <h5>Limit</h5>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-md">
+          <h5>Score</h5>
+          <input class="form-control" type="text">
+        </div>
+        <div class="col-md">
+          <h5>Sort</h5>
+          <input class="form-control" type="text">
+        </div>
+      </div>
+      <div class="text-right">
+        <button class="btn btn-success">Buscar</button>
+      </div>
+    </nav>
+    <main class="conteudo">
+      <table>
+        <thead>
+          <tr>
+            <th>Tag</th>
+            <th>Owner</th>
+            <th>Title</th>
+            <th>Views</th>
+            <th>Score</th>
+            <th>Created</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>  
+      </table>
+    </main>
+    <footer class="rodape"></footer>
   </div>
 </template>
 
 <script>
+import "bootstrap/dist/css/bootstrap.css"
 
 export default {
   name: 'app'
@@ -11,5 +64,72 @@ export default {
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: block;
+}
+
+.cabecalho {
+  background: #fff;
+  color: #333;
+  padding: 50px 0 10px 30px;
+}
+
+.filtros {
+  background: lightgray;
+  color: #333;
+  padding: 30px;
+  border: lightgray solid 1px;
+  margin: 0 30px
+}
+
+.filtros button {
+  margin-top: 15px;
+  min-width: 150px;
+}
+
+.conteudo {
+  background: #fff;
+  color: #333;
+  padding: 30px 0;
+  margin: 0 30px
+}
+
+table {
+  border-radius: 3px;
+  background-color: #fff;
+  width: 100%;
+}
+
+th {
+  background-color: lightgray;
+  color: #333;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+th, td {
+  min-width: 120px;
+  padding: 10px 20px;
+  border: #fff solid 1px;
+}
+
+.rodape {
+  background: #fff;
+  color: #333;
+  padding: 30px;
+  margin: 0 30px
+}
 
 </style>
