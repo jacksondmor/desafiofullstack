@@ -10,7 +10,7 @@
 
 <script>
 import "bootstrap/dist/css/bootstrap.css"
-import "../content/style.css"
+import "./content/style.css"
 import AppFiltros from "./components/AppFiltros"
 
 export default {
